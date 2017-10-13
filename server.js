@@ -6,14 +6,20 @@ const https =require('https');
 const topojson = require('topojson-client');
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-app.use(express.static(path.join(__dirname, "dist")));
+//app.use(express.static(path.join(__dirname, "dist")));
 
-app.use(favicon(path.join(__dirname, "dist", "favicon.ico")));
+//app.use(favicon(path.join(__dirname, "dist", "favicon.ico")));
 //Arrow function ()=>
-
+/*
 app.get('/', function(req,res){
   res.sendFile('index.html')
+});
+*/
+
+app.get('/', function(req,res){
+  res.send('Bienvenido al api')
 });
 
 var apiV1 = express.Router();
@@ -47,7 +53,7 @@ apiV1.get('/estados',function(req, res){
 apiV2.get('/paises/estados/ciudades',function(req, res){
   var ciudades = [];
   var worldData = [];
-  fs.readFile('dist/cities.json','utf-8', function(err,data){
+  fs.readFile('/cities.json','utf-8', function(err,data){
     ciudades =JSON.parse(data).states
 
     var woldJson = 'https://unpkg.com/world-atlas@1.1.4/world/110m.json'
@@ -81,13 +87,11 @@ apiV2.get('/paises/estados/ciudades',function(req, res){
 
 });
 
-apiV2('edomex', function(req,res){
 
-});
 app.use('/api/v1',apiV1);
 app.use('/api/v2',apiV2);
 
-const PORT = 3000;
+
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
