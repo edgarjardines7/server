@@ -60,7 +60,7 @@ apiV1.get('/estados',function(req, res){
 apiV2.get('/paises/estados/ciudades',function(req, res){
   var ciudades = [];
   var worldData = [];
-  fs.readFile('/cities.json','utf-8', function(err,data){
+  fs.readFile('data/cities.json','utf-8', function(err,data){
     ciudades =JSON.parse(data).states
 
     var woldJson = 'https://unpkg.com/world-atlas@1.1.4/world/110m.json'
