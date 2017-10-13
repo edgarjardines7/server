@@ -4,7 +4,7 @@ const favicon = require("serve-favicon")
 const fs = require('fs');// nativo de node
 const https =require('https');
 const topojson = require('topojson-client');
-
+const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -18,6 +18,13 @@ app.get('/', function(req,res){
 });
 */
 
+//CORS config
+app.use(cors());
+app.use(function(req, res, next){
+  res.setHeader('Access-Control-Allow-Origin','*');
+  res.setHeader('Access-Control-Allow-Methods','GET');
+  next();
+});
 app.get('/', function(req,res){
   res.send('Bienvenido al api')
 });
